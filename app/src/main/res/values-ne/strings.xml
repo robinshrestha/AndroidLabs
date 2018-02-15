@@ -3,4 +3,11 @@
     <string name="app_name">आन्द्रोइद्लब्स्</string>
     <string name="hello_message">नमस्ते!</string>
     <string name="ButtonText">म बुत्तोन हो</string>
+    <string name="LoginName">लोगिन नेम </string>
+    <string name="password">पस्स्वोर्द </string>
+    <string name="Login">लोगिन </string>
+    <string name="Password">पस्स्वोर्द </string>
+    <string name="RadioButton">रेडियोबुत्तोन  </string>
+    <string name="CheckBox">चेकबोक्स </string>
+    <string name="Switch">स्वित्छ  </string>
 </resources>
