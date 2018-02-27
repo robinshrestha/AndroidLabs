@@ -10,4 +10,7 @@
     <string name="RadioButton">रेडियोबुत्तोन  </string>
     <string name="CheckBox">चेकबोक्स </string>
     <string name="Switch">स्वित्छ  </string>
+    <string name="StartChat">चात सुरु</string>
+    <string name="sendButton">पठाउ </string>
+
 </resources>

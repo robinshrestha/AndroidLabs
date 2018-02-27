@@ -1,18 +1,19 @@
-
 <resources>
-<string name="app_name">Lab1</string>
-<string name="hello_message">Hello World</string>
-<string name="ButtonText">I\'m a button</string>
-<string name="Login">Login</string>
-<string name="Loginname"> Login Name</string>
-<string name="Password">Password</string>
-<string name="Switch">Switch</string>
-<string name="Radiobutton">Radiobutton</string>
-<string name="Checkbox">Checkbox</string>
-<string name="dialog_message">Do you want to exit?</string>
-<string name="dialog_title">Welcome</string>
-<string name="ok">Yes</string>
-<string name="cancel">No</string>
-<string name="response">Here is my response</string>
+    <string name="app_name">Lab1</string>
+    <string name="hello_message">Hello World</string>
+    <string name="ButtonText">I\'m a button</string>
+    <string name="Login">Login</string>
+    <string name="Loginname"> Login Name</string>
+    <string name="Password">Password</string>
+    <string name="Switch">Switch</string>
+    <string name="Radiobutton">Radiobutton</string>
+    <string name="Checkbox">Checkbox</string>
+    <string name="dialog_message">Do you want to exit?</string>
+    <string name="dialog_title">Welcome</string>
+    <string name="ok">Yes</string>
+    <string name="cancel">No</string>
+    <string name="response">Here is my response</string>
+    <string name="StartChat">Start Chat</string>
+
 
 </resources>
