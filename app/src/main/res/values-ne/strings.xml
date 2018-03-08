@@ -7,8 +7,8 @@
     <string name="password">पस्स्वोर्द </string>
     <string name="Login">लोगिन </string>
     <string name="Password">पस्स्वोर्द </string>
-    <string name="RadioButton">रेडियोबुत्तोन  </string>
-    <string name="CheckBox">चेकबोक्स </string>
+    <string name="Radiobutton">रेडियोबुत्तोन  </string>
+    <string name="Checkbox">चेकबोक्स </string>
     <string name="Switch">स्वित्छ  </string>
     <string name="StartChat">चात सुरु</string>
     <string name="sendButton">पठाउ </string>
