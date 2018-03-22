@@ -14,6 +14,11 @@
     <string name="cancel">No</string>
     <string name="response">Here is my response</string>
     <string name="StartChat">Start Chat</string>
+    <string name="buttonWeather">Weather Forecast</string>
+    <string name="CurrentTemp">Current Temperature:   </string>
+    <string name="minTemp">Min Temperature:   </string>
+    <string name="maxTemp">Max Temperature:   </string>
+    <string name="windSpeed">Wind Speed:   </string>
 
 
 </resources>

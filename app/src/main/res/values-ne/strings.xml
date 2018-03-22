@@ -12,5 +12,10 @@
     <string name="Switch">स्वित्छ  </string>
     <string name="StartChat">चात सुरु</string>
     <string name="sendButton">पठाउ </string>
+    <string name="buttonWeather">वेदर फोरेकस्त </string>
+    <string name="CurrentTemp">कुर्‍एन्त टेम्पेरचर:    </string>
+    <string name="minTemp">मिन टेम्पेरचर:    </string>
+    <string name="maxTemp">मक्स टेम्पेरचर:   </string>
+    <string name="windSpeed">विन्द स्पीड:   </string>
 
 </resources>

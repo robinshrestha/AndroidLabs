@@ -18,29 +18,43 @@ public class StartActivity extends Activity {
 
         setContentView(R.layout.activity_start);
 
-        Log.i(ACTIVITY_NAME,"In onCreate():");
+        Log.i(ACTIVITY_NAME, "In onCreate():");
 
-        Button btn2= (Button)findViewById(R.id.button);
-        Button btn = (Button)findViewById(R.id.startChat);
+        Button btn2 = (Button) findViewById(R.id.button);
+        Button btn = (Button) findViewById(R.id.startChat);
+        Button buttonWeather = (Button) findViewById(R.id.buttonWeather);
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Intent intent = new Intent(StartActivity.this, ListItemsActivity.class);
                 startActivity(intent);
-               // startActivityForResult(intent,50);
+                // startActivityForResult(intent,50);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent intent = new   Intent(StartActivity.this, ChatWindow.class);
+                final Intent intent = new Intent(StartActivity.this, ChatWindow.class);
                 startActivity(intent);
                 // startActivityForResult(intent,50);
             }
         });
 
-    }  @Override
+        buttonWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //  Log.i(ACTIVITY_NAME, "User clicked Check Weather");
+                final Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
+                startActivity(intent);
+            }
+        });
+
+
+Log.i(ACTIVITY_NAME,"In onCreate()");
+}
+
+    @Override
     protected void onStart() {
         Log.i(ACTIVITY_NAME, "In onStart()");
         super.onStart();
