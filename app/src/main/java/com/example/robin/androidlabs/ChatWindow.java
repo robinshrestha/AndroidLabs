@@ -45,7 +45,7 @@ import java.util.ArrayList;
 public class ChatWindow extends Activity {
     protected static final String ACTIVITY_NAME = "ChatWindow";
 
-    ChatAdapter messageAdapter =new ChatAdapter( this );
+    ChatAdapter messageAdapter;
     ArrayList<String> list = new ArrayList<>();
     ListView listView;
     EditText editText;
@@ -62,7 +62,7 @@ public class ChatWindow extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_window);
         ChatDatabaseHelper helper = new ChatDatabaseHelper(this);
-
+        messageAdapter =new ChatAdapter( this );
        // messageAdapter = new ChatAdapter(this);
         db = helper.getWritableDatabase();
         Cursor cursor = db.query(true, ChatDatabaseHelper.TABLE_NAME,

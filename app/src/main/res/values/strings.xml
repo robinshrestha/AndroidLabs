@@ -19,6 +19,7 @@
     <string name="minTemp">Min Temperature:   </string>
     <string name="maxTemp">Max Temperature:   </string>
     <string name="windSpeed">Wind Speed:   </string>
+    <string name="sendButton">Send</string>
 
 
 </resources>
