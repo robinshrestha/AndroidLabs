@@ -9,14 +9,14 @@
         android:id="@+id/messageDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="messageDetails" />
+        android:text="Message Here" />
 
     <TextView
         android:id="@+id/messageID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/messageDetails"
-        android:text="messageID" />
+        android:text="ID" />
 
     <Button
         android:id="@+id/deleteMessage"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:text="deleteMessage" />
+        android:text="Delete this Message" />
 
 
 </RelativeLayout>

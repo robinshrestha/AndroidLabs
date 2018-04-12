@@ -1,21 +1,5 @@
 package com.example.robin.androidlabs;
 import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.util.Log;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.content.ContentValues;
-import android.app.FragmentTransaction;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
@@ -35,22 +19,17 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-
 import java.util.ArrayList;
 
-
-
-
 public class ChatWindow extends Activity {
-    protected static final String ACTIVITY_NAME = "ChatWindow";
 
-    ChatAdapter messageAdapter;
-    ArrayList<String> list = new ArrayList<>();
-    ListView listView;
+    Button sendButton;
     EditText editText;
-    Button button;
-    SQLiteDatabase db;
+    ListView listView;
+    ArrayList<String> chat = new ArrayList<>();
+    ChatAdapter messageAdapter;
+    ChatDatabaseHelper chatDatabaseHelper;
+    SQLiteDatabase database;
     ContentValues contentValues;
     Boolean frameExist;
     Cursor cursor;
@@ -61,40 +40,45 @@ public class ChatWindow extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_window);
-        ChatDatabaseHelper helper = new ChatDatabaseHelper(this);
-        messageAdapter =new ChatAdapter( this );
-       // messageAdapter = new ChatAdapter(this);
-        db = helper.getWritableDatabase();
-        Cursor cursor = db.query(true, ChatDatabaseHelper.TABLE_NAME,
-                new String[] { ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
-                ChatDatabaseHelper.KEY_MESSAGE + " Not Null" , null, null, null, null, null);
+        sendButton = (Button) findViewById(R.id.sendButton);
+        editText = (EditText) findViewById(R.id.editText);
+        listView = (ListView) findViewById(R.id.listView);
 
-        cursor.moveToFirst();
+        messageAdapter = new ChatAdapter(this);
+        listView.setAdapter((ListAdapter)messageAdapter);
 
-        while(!cursor.isAfterLast() ) {
-            list.add(cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE)));
-            messageAdapter.notifyDataSetChanged();;
-            Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE)));
-            cursor.moveToNext();
+        // Create a temporary ChatDatavaseHelper object
+        chatDatabaseHelper = new ChatDatabaseHelper(this);
+        database = chatDatabaseHelper.getWritableDatabase();
+        cursor = database.query(ChatDatabaseHelper.TABLE_NAME,new String[]{chatDatabaseHelper.KEY_ID,ChatDatabaseHelper.KEY_MESSAGE},null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                String message = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE));
+                Log.i("ChatWindow","SQL MESSAGE: "+message);
+                Log.i("ChatWindow","Cursor's column count = "+cursor.getColumnCount());
+                chat.add(message);
+                cursor.moveToNext();
+            }
+        }
+        for(int i = 0; i < cursor.getColumnCount(); i++){
+            Log.i("ChatWindow","The "+i+" column is "+cursor.getColumnName(i));
         }
 
-        Log.i(ACTIVITY_NAME, "Cursor's  column count =" + cursor.getColumnCount() );
 
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newMessage = editText.getText().toString();
+                chat.add(newMessage);
+                contentValues = new ContentValues();
+                contentValues.put(ChatDatabaseHelper.KEY_MESSAGE,newMessage);
+                database.insert(ChatDatabaseHelper.TABLE_NAME,null,contentValues);
 
-        listView = (ListView) findViewById(R.id.listView);
-        editText = (EditText) findViewById(R.id.editText);
-        button = (Button) findViewById(R.id.sendButton);
-
-        listView.setAdapter (messageAdapter);
-
-        button.setOnClickListener(e->{
-            list.add(editText.getText().toString());
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(ChatDatabaseHelper.KEY_MESSAGE,editText.getText().toString());
-            db.insert(ChatDatabaseHelper.TABLE_NAME, null, contentValues);
-            messageAdapter.notifyDataSetChanged();
-            editText.setText("");
+                messageAdapter.notifyDataSetChanged();
+                editText.setText("");
+            }
         });
+
         listView.setOnItemClickListener((AdapterView<?> adapterView, View view, int position, long id)->{
             frameExist = findViewById(R.id.frameLayout)!=null;
             long messageId = messageAdapter.getItemId(position);
@@ -119,50 +103,15 @@ public class ChatWindow extends Activity {
             }
         });
 
-
-
-
-    }
-
-    private class ChatAdapter extends ArrayAdapter<String>{
-        public ChatAdapter(Context ctx) {
-            super(ctx, 0);
-        }
-
-        public int getCount(){
-            return list.size();
-        }
-        public String getItem(int position){
-            return list.get(position);
-        }
-        public View getView(int position, View convertView, ViewGroup parent){
-            LayoutInflater inflater = ChatWindow.this.getLayoutInflater();
-            View result = null;
-            if(position%2 == 0)
-                result = inflater.inflate(R.layout.chat_row_incoming, null);
-            else
-                result = inflater.inflate(R.layout.chat_row_outgoing, null);
-
-            TextView message = (TextView)result.findViewById(R.id.message_text);
-            message.setText(   getItem(position)  ); // get the string at position
-            return result;
-        }
-
-        public long getId(int position){
-            return position;
-        }
-
     }
     @Override
-    protected void onDestroy() {
+    protected void onDestroy(){
         super.onDestroy();
-        db.close();
+        if(chatDatabaseHelper != null ){
+            chatDatabaseHelper.close();
+        }
     }
 
-    public long getItemId(int position){
-        cursor.moveToPosition(position);
-        return cursor.getLong(cursor.getColumnIndex(ChatDatabaseHelper.KEY_ID));
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -172,22 +121,58 @@ public class ChatWindow extends Activity {
             deleteMessage(ID);
         }
     }
+
     public void deleteMessage(Long id){
 
-       db.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID + "="+ id,null);
+        database.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID + "="+ id,null);
 
-        list.clear();
-        cursor = db.query(ChatDatabaseHelper.TABLE_NAME,new String[]{ChatDatabaseHelper.KEY_ID,ChatDatabaseHelper.KEY_MESSAGE},null,null,null,null,null);
+        chat.clear();
+        cursor = database.query(ChatDatabaseHelper.TABLE_NAME,new String[]{chatDatabaseHelper.KEY_ID,ChatDatabaseHelper.KEY_MESSAGE},null,null,null,null,null);
         if(cursor.moveToFirst()){
             while(!cursor.isAfterLast()){
                 String message = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE));
-                list.add(message);
+                chat.add(message);
                 cursor.moveToNext();
             }
         }
         messageAdapter.notifyDataSetChanged();
     }
 
+    private class ChatAdapter extends ArrayAdapter<String>{
+        public ChatAdapter(Context ctx){
+            super(ctx,0);
+        }
+        public int getCount(){
+            return chat.size();
+        }
 
+        public String getItem(int position){
+            return chat.get(position);
+        }
+
+        public View getView(int position,View convertView,ViewGroup parent){
+            LayoutInflater inflater = ChatWindow.this.getLayoutInflater();
+            View result = null ;
+            if(position%2 == 0)
+                result = inflater.inflate(R.layout.chat_row_incoming, null);
+            else
+                result = inflater.inflate(R.layout.chat_row_outgoing, null);
+            TextView message = (TextView)result.findViewById(R.id.message_text);
+            message.setText(   getItem(position)  ); // get the string at position
+            //position++;
+            return result;
+        }
+
+        public long getId(int position){
+            return position;
+        }
+
+        public long getItemId(int position){
+            cursor.moveToPosition(position);
+            return cursor.getLong(cursor.getColumnIndex(chatDatabaseHelper.KEY_ID));
+        }
+
+
+    }
 
 }
