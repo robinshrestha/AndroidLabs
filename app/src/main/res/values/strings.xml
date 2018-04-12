@@ -23,6 +23,7 @@
     <string name="messageDetails">Message Details</string>
     <string name="deleteMessage">Delete Messages</string>
     <string name="messageID">Message ID</string>
+    <string name="title_activity_test_toolbar">TestToolbar</string>
 
 
 </resources>
