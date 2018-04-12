@@ -10,14 +10,14 @@
         android:id="@+id/messageDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="messageDetails" />
+        android:text="@string/messageDetails" />
 
     <TextView
         android:id="@+id/messageID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/messageDetails"
-        android:text="messageID" />
+        android:text="@string/messageID" />
 
     <Button
         android:id="@+id/deleteMessage"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:text="Delete This Message" />
+        android:text="@string/deleteMessage" />
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
