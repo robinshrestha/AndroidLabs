@@ -38,6 +38,13 @@
         app:layout_constraintLeft_toRightOf="@+id/startChat"
         android:text="@string/buttonWeather"
         />
+    <Button
+        android:id="@+id/tool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToolBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

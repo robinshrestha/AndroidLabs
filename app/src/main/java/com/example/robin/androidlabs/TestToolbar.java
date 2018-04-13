@@ -1,4 +1,6 @@
 package com.example.robin.androidlabs;
+
+
 import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
@@ -50,7 +52,7 @@ public class TestToolbar extends AppCompatActivity {
                 break;
             case R.id.action_two:
                 AlertDialog.Builder builder = new AlertDialog.Builder(TestToolbar.this);
-                builder.setTitle(R.string.AlertTitle2);
+                builder.setTitle("Please check");
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
@@ -75,7 +77,7 @@ public class TestToolbar extends AppCompatActivity {
                 EditText editText = (EditText) view.findViewById(R.id.newMessage);
 
                 builder = new AlertDialog.Builder(TestToolbar.this);
-                builder.setTitle(R.string.AlertTitle3);
+                builder.setTitle("Alert message");
                 builder.setView(view);
                 builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -96,7 +98,7 @@ public class TestToolbar extends AppCompatActivity {
 
 
             case R.id.action_four:
-                Toast toast = Toast.makeText(this, "Version 1.0 by Rajat kumar", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, "Version 1.0 by Robin", Toast.LENGTH_SHORT);
                 toast.show();
                 break;
         }

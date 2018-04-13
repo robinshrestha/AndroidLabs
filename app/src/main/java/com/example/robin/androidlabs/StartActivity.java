@@ -23,6 +23,7 @@ public class StartActivity extends Activity {
         Button btn2 = (Button) findViewById(R.id.button);
         Button btn = (Button) findViewById(R.id.startChat);
         Button buttonWeather = (Button) findViewById(R.id.buttonWeather);
+        Button tool1=(Button) findViewById(R.id.tool);
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,13 @@ public class StartActivity extends Activity {
             public void onClick(View view) {
                 //  Log.i(ACTIVITY_NAME, "User clicked Check Weather");
                 final Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
+                startActivity(intent);
+            }
+        });
+        tool1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                final Intent intent =new Intent(StartActivity.this,TestToolbar.class);
                 startActivity(intent);
             }
         });

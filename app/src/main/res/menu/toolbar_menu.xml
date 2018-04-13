@@ -22,5 +22,5 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <item android:title="About"
     app:showAsAction="never"
-    android:id="@+id/about"/>
+    android:id="@+id/action_four"/>
 </menu>
